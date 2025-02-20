@@ -8,7 +8,13 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     name           = "default"
     node_count     = 1
     vm_size        = "Standard_D2_v2"
-    vnet_subnet_id = azurerm_subnet.subnet1
+    vnet_subnet_id = azurerm_subnet.subnet1.id
+  }
+
+  network_profile {
+    network_plugin = "azure"
+    service_cidr   = "10.1.0.0/16"
+    dns_service_ip = "10.1.0.10"
   }
 
   identity {
@@ -21,12 +27,12 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
 }
 
 output "client_certificate" {
-  value     = azurerm_kubernetes_cluster.example.kube_config[0].client_certificate
+  value     = azurerm_kubernetes_cluster.aks_cluster.kube_config[0].client_certificate
   sensitive = true
 }
 
 output "kube_config" {
-  value = azurerm_kubernetes_cluster.example.kube_config_raw
+  value = azurerm_kubernetes_cluster.aks_cluster.kube_config_raw
 
   sensitive = true
 }
