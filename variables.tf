@@ -32,4 +32,5 @@ variable "subnet_address_prefix" {
 
 variable "aks_cluster" {
   description = "Name of the AKS cluster."
+  type        = string
 }
