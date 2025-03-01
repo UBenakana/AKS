@@ -30,4 +30,6 @@ variable "subnet_address_prefix" {
   default     = ["10.240.0.0/16"]
 }
 
-variable "aks_cluster" {}
+variable "aks_cluster" {
+  description = "Name of the AKS cluster."
+}
